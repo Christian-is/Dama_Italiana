@@ -52,6 +52,3 @@ Applicazione sviluppata per l'esame di Ingegneria del Software.
 Applicazione a linea di comando.
 L'immagine docker non è disponibile in quanto la repository originale è privata,
 tuttavia è ugualmente avviabile attraverso un qualsiasi terminal o ide.
-
-NOTE:
-la presa multipla della dama non è ottimale, non funzionano i casi di presa su diagonali diverse (prima o poi la sistemerò).
