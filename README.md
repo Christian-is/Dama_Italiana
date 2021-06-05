@@ -51,3 +51,13 @@ Nel seguito si dettagliano i ruoli dei diversi componenti:
 - **settings.gradle**: file di configurazione di *Gradle*. Anche quest’ultimo viene generato automaticamente da Eclipse.
 
 In alcune cartelle è possibile notare la presenza di un unico file nascosto `.keep`: questo ha il solo scopo di richiedere a Git l’inclusione delle cartelle in cui è contenuto (Git esclude dal *versioning* le cartelle vuote). Pertanto, il file può essere ignorato o eventualmente cancellato nel momento in cui si inserisca almeno un altro file all’interno della cartella.
+
+________________________________________________________________________________________________________________________________________________________________________________
+Applicazione sviluppata per l'esame di Ingegneria del Software.
+
+Applicazione a linea di comando.
+L'immagine docker non è disponibile in quanto la repository originale è privata,
+tuttavia è ugualmente avviabile attraverso un qualsiasi terminal o ide.
+
+NOTE:
+la presa multipla della dama non è ottimale, non funzionano i casi di presa su diagonali diverse (prima o poi la sistemerò).
