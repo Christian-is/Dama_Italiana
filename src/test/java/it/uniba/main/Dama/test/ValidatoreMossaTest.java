@@ -118,6 +118,74 @@ public class ValidatoreMossaTest {
         ValidatoreMossa vm = new ValidatoreMossa(comando, c);
         assertTrue(vm.isPresa());
     }
+    
+    @Test
+    public void testSpostamentoAngoloBianco() {
+        String comando = "20x11x4";
+        Campo c = new Campo();
+        c.eliminaPedina(11);
+        c.eliminaPedina(4);
+        c.spostaPedina(12, 15);
+        c.spostaPedina(24, 20);
+
+        c.getBianco().setTurno(true);
+        ValidatoreMossa vm = new ValidatoreMossa(comando, c);
+        assertTrue(vm.isPresa());
+        assertTrue(vm.isValida());
+    }
+
+    @Test
+    public void testSpostamentoAngoloNero() {
+        String comando = "13x22x29";
+        Campo c = new Campo();
+        c.eliminaPedina(22);
+        c.eliminaPedina(29);
+        c.spostaPedina(9, 13);
+        c.spostaPedina(21, 18);
+
+        c.getNero().setTurno(true);
+        ValidatoreMossa vm = new ValidatoreMossa(comando, c);
+        assertTrue(vm.isPresa());
+        assertTrue(vm.isValida());
+    }
+
+    @Test
+    public void testSpostamentoDamaNeraAngolo() {
+        String comando = "20x11x4";
+        Campo c = new Campo();
+        c.eliminaPedina(11);
+        c.eliminaPedina(4);
+        c.spostaPedina(12, 15);
+        c.spostaPedina(24, 20);
+        c.getCasella(20).getP().setDama(true);
+        c.getCasella(20).getP().setColore('N');
+        c.getCasella(15).getP().setColore('B');
+        c.getCasella(7).getP().setColore('B');
+
+        c.getNero().setTurno(true);
+        ValidatoreMossa vm = new ValidatoreMossa(comando, c);
+        assertTrue(vm.isPresa());
+        assertTrue(vm.isValida());
+    }
+
+    @Test
+    public void testSpostamentoDamaBiancoAngolo() {
+        String comando = "13x22x29";
+        Campo c = new Campo();
+        c.eliminaPedina(22);
+        c.eliminaPedina(29);
+        c.spostaPedina(9, 13);
+        c.spostaPedina(21, 18);
+        c.getCasella(13).getP().setDama(true);
+        c.getCasella(13).getP().setColore('B');
+        c.getCasella(18).getP().setColore('N');
+        c.getCasella(26).getP().setColore('N');
+
+        c.getBianco().setTurno(true);
+        ValidatoreMossa vm = new ValidatoreMossa(comando, c);
+        assertTrue(vm.isPresa());
+        assertTrue(vm.isValida());
+    }
 
     @Test
     public void testIsNotPresa() {
