@@ -134,9 +134,9 @@ public class Gioco {
     private void verificaVincitore() {
         final int maxPedineGiocatore = 12; //ogni giocatore ha al massimo 12 pedine
         if (c.getNero().getPedinePrese().size() == maxPedineGiocatore) {
-            vincitore = "Bianco";
-        } else if (c.getBianco().getPedinePrese().size() == maxPedineGiocatore) {
             vincitore = "Nero";
+        } else if (c.getBianco().getPedinePrese().size() == maxPedineGiocatore) {
+            vincitore = "Bianco";
         }
     }
 
