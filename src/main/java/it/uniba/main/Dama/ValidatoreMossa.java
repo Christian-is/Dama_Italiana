@@ -193,6 +193,19 @@ public class ValidatoreMossa {
     }
 
     private boolean isPresaValida(final Campo c) {
+        if (c.getCasella(caselle[0]).getP() != null) {
+            final boolean dama = c.getCasella(caselle[0]).getP().isDama();
+            if (!dama) {
+                return isPresaValidaPedinaSemplice(c);
+            } else {
+                return isPresaValidaDama(c);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isPresaValidaPedinaSemplice(final Campo c) {
         boolean valido = false;
         int numero = 0;
         for (int i = 0; i < getCaselle().length; i++) {
@@ -215,101 +228,128 @@ public class ValidatoreMossa {
             int arrivoX = c.coordinataX(getCaselle()[i + 1]);
             int arrivoY = c.coordinataY(getCaselle()[i + 1]);
 
-            //presa pedina semplice (NON FUNZIONA LA PRESA MULTIPLA AD ANGOLO)
-            if (c.getCasella(codicePartenza).getP() != null && !c.getCasella(codicePartenza).getP().isDama()) {
-                if (i == 0) {
-                    if (c.getNero().isTurno() && c.getCasella(codicePartenza).getP().getColore() == 'N') {
-                        if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
-                            if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY + 1,  i, 'B', vettPreseValide);
-                            } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY - 1, i, 'B', vettPreseValide);
-                            }
-                        }
-                    }
-                    if (c.getBianco().isTurno() && c.getCasella(codicePartenza).getP().getColore() == 'B') {
-                        if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
-                            if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY + 1, i, 'N', vettPreseValide);
-                            } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY - 1, i, 'N', vettPreseValide);
-                            }
-                        }
-                    }
-                } else {
-                    if (c.getNero().isTurno() && vettPreseValide[i - 1]) {
-                        if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
-                            if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY + 1, i, 'B', vettPreseValide);
-                            } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY - 1, i, 'B', vettPreseValide);
-                            }
-                        }
-                    }
-                    if (c.getBianco().isTurno() && vettPreseValide[i - 1]) {
-                        if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
-                            if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY + 1,  i, 'N', vettPreseValide);
-                            } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY - 1,  i, 'N',  vettPreseValide);
-                            }
+            if (i == 0) {
+                if (c.getNero().isTurno() && c.getCasella(codicePartenza).getP() != null
+                        && c.getCasella(codicePartenza).getP().getColore() == 'N') {
+                    if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
+                        if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY + 1,  i, 'B', vettPreseValide);
+                        } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY - 1, i, 'B', vettPreseValide);
                         }
                     }
                 }
-            //presa dama (NON FUNZIONA LA PRESA MULTIPLA AD ANGOLO)
-            } else if (c.getCasella(codicePartenza).getP() != null && c.getCasella(codicePartenza).getP().isDama()) {
-                if (i == 0) {
-                    if (c.getNero().isTurno() && c.getCasella(codicePartenza).getP().getColore() == 'N') {
-                        if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
-                            if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY + 1,  i, 'B', vettPreseValide);
-                            } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY - 1, i, 'B', vettPreseValide);
-                            } else if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY + 1, i, 'B', vettPreseValide);
-                            } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY - 1, i, 'B', vettPreseValide);
-                            }
+                if (c.getBianco().isTurno() && c.getCasella(codicePartenza).getP()
+                        != null && c.getCasella(codicePartenza).getP().getColore() == 'B') {
+                    if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
+                        if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY + 1, i, 'N', vettPreseValide);
+                        } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY - 1, i, 'N', vettPreseValide);
                         }
                     }
-                    if (c.getBianco().isTurno() && c.getCasella(codicePartenza).getP().getColore() == 'B') {
-                        if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
-                            if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY + 1, i, 'N', vettPreseValide);
-                            } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY - 1, i, 'N', vettPreseValide);
-                            } else if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY + 1,  i, 'N', vettPreseValide);
-                            } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY - 1, i, 'N', vettPreseValide);
-                            }
+                }
+            } else {
+                if (c.getNero().isTurno() && vettPreseValide[i - 1]) {
+                    if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
+                        if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY + 1, i, 'B', vettPreseValide);
+                        } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY - 1, i, 'B', vettPreseValide);
                         }
                     }
-                } else {
-                    if (c.getNero().isTurno() && vettPreseValide[i - 1]) {
-                        if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
-                            if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY + 1,  i, 'B', vettPreseValide);
-                            } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY - 1, i, 'B', vettPreseValide);
-                            } else if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY + 1, i, 'B', vettPreseValide);
-                            } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY - 1, i, 'B', vettPreseValide);
-                            }
+                }
+                if (c.getBianco().isTurno() && vettPreseValide[i - 1]) {
+                    if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
+                        if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY + 1,  i, 'N', vettPreseValide);
+                        } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY - 1,  i, 'N',  vettPreseValide);
                         }
                     }
-                    if (c.getBianco().isTurno() && vettPreseValide[i - 1]) {
-                        if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
-                            if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY + 1, i, 'N', vettPreseValide);
-                            } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX - 1, partenzaY - 1, i, 'N', vettPreseValide);
-                            } else if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY + 1,  i, 'N', vettPreseValide);
-                            } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
-                                analizza(c, partenzaX + 1, partenzaY - 1, i, 'N', vettPreseValide);
-                            }
+                }
+            }
+        }
+        valido = vettoreValido(vettPreseValide);
+        return valido;
+    }
+
+    private boolean isPresaValidaDama(final Campo c) {
+        boolean valido = false;
+        int numero = 0;
+        for (int i = 0; i < getCaselle().length; i++) {
+            if (getCaselle()[i] != 0) {
+                numero++;
+            }
+        }
+
+        boolean[] vettPreseValide = new boolean[numero - 1];
+
+        for (int j = 0; j < vettPreseValide.length; j++) {
+            vettPreseValide[j] = false;
+        }
+
+        for (int i = 0; i < vettPreseValide.length; i++) {
+            int codicePartenza = getCaselle()[i];
+            int codiceArrivo = getCaselle()[i + 1];
+            int partenzaX = c.coordinataX(getCaselle()[i]);
+            int partenzaY = c.coordinataY(getCaselle()[i]);
+            int arrivoX = c.coordinataX(getCaselle()[i + 1]);
+            int arrivoY = c.coordinataY(getCaselle()[i + 1]);
+
+            if (i == 0) {
+                if (c.getNero().isTurno() && c.getCasella(codicePartenza).getP() != null
+                        && c.getCasella(codicePartenza).getP().getColore() == 'N') {
+                    if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
+                        if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY + 1, i, 'B', vettPreseValide);
+                        } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY - 1, i, 'B', vettPreseValide);
+                        } else if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY + 1, i, 'B', vettPreseValide);
+                        } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY - 1, i, 'B', vettPreseValide);
+                        }
+                    }
+                }
+                if (c.getBianco().isTurno() && c.getCasella(codicePartenza).getP() != null
+                        && c.getCasella(codicePartenza).getP().getColore() == 'B') {
+                    if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
+                        if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY + 1, i, 'N', vettPreseValide);
+                        } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY - 1, i, 'N', vettPreseValide);
+                        } else if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY + 1, i, 'N', vettPreseValide);
+                        } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY - 1, i, 'N', vettPreseValide);
+                        }
+                    }
+                }
+            } else {
+                if (c.getNero().isTurno() && vettPreseValide[i - 1]) {
+                    if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
+                        if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY + 1, i, 'B', vettPreseValide);
+                        } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY - 1, i, 'B', vettPreseValide);
+                        } else if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY + 1, i, 'B', vettPreseValide);
+                        } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY - 1, i, 'B', vettPreseValide);
+                        }
+                    }
+                }
+                if (c.getBianco().isTurno() && vettPreseValide[i - 1]) {
+                    if (c.getCasella(codiceArrivo).getCodice() != 0 && c.getCasella(codiceArrivo).getP() == null) {
+                        if (partenzaX - 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY + 1, i, 'N', vettPreseValide);
+                        } else if (partenzaX - 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX - 1, partenzaY - 1, i, 'N', vettPreseValide);
+                        } else if (partenzaX + 2 == arrivoX && partenzaY + 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY + 1, i, 'N', vettPreseValide);
+                        } else if (partenzaX + 2 == arrivoX && partenzaY - 2 == arrivoY) {
+                            analizza(c, partenzaX + 1, partenzaY - 1, i, 'N', vettPreseValide);
                         }
                     }
                 }
