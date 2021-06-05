@@ -23,6 +23,7 @@ La struttura della repository si presenta nel seguente modo:
 |    |–– test
 |–– .gitignore
 |–– build.gradle
+|–– Assegnazione progetto.md
 |–– README.md
 |–– gradlew
 |–– gradle.bat
