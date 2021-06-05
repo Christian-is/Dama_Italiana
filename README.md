@@ -3,9 +3,6 @@
 
 La struttura della repository si presenta nel seguente modo:
 ```
-|-- .github
-|    |-- workflows
-|    |      |-- ingsw2021.yml
 |-- build
 |    |-- reports
 |    |      |-- checkstyle
@@ -26,8 +23,6 @@ La struttura della repository si presenta nel seguente modo:
 |    |–– test
 |–– .gitignore
 |–– build.gradle
-|–– Assegnazione progetto.md
-|–– Guida per lo studente.md
 |–– README.md
 |–– gradlew
 |–– gradle.bat
@@ -35,7 +30,6 @@ La struttura della repository si presenta nel seguente modo:
 ```
 
 Nel seguito si dettagliano i ruoli dei diversi componenti:
-- **.github/workflows/ingsw2021.yml**: dettaglia le direttive per assicurare la *continuous integration* attraverso l’uso di GitHub Actions;
 - **build**: ospita la sottocartella *reports*, contenente gli output dei tool automatici di test e controllo di qualità;
 - **config**: ospita i file di configurazione. L’unica configurazione di base richiesta è quella per il tool checkstyle;
 - **doc**: in questa cartella deve essere inserita tutta la documentazione relativa al progetto. In particolare, in *drawings* dovranno essere salvati i diagrammi UML e *javadoc* ospiterà la documentazione generata automaticamente per il codice Java. Il file *Report.md* rappresenta la relazione finale del progetto;
@@ -46,7 +40,6 @@ Nel seguito si dettagliano i ruoli dei diversi componenti:
 - **.gitignore**: specifica tutti i file che devono essere esclusi dal sistema di controllo versione.
 - **build.gradle**: esplicita le direttive e la configurazione per *Gradle*. 
 - **Assegnazione progetto.md**: fare riferimento a questo file per la descrizione dettagliata del progetto assegnato;
-- **Guida per lo studente.md:** elenca e descrive tutti i passi di configurazione necessari per attivare l’intero flusso di lavoro dietro lo sviluppo del progetto;
 - **gradlew & gradlew.bat**: sono i file eseguibili di *Gradle*, rispettivamente per Unix e per Windows. Vengono generati automaticamente da Eclipse;
 - **settings.gradle**: file di configurazione di *Gradle*. Anche quest’ultimo viene generato automaticamente da Eclipse.
 
